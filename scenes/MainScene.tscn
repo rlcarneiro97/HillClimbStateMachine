@@ -1,0 +1,111 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Plataform.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Vehiche.tscn" type="PackedScene" id=2]
+
+[node name="MainScene" type="Node2D"]
+
+[node name="PlataformA" parent="." instance=ExtResource( 1 )]
+position = Vector2( 8, 264 )
+rotation = 1.5708
+
+[node name="PlataformA2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 8, 136 )
+rotation = 1.5708
+
+[node name="PlataformA3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 8, 8 )
+rotation = 1.5708
+
+[node name="PlataformZ" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2568, 128 )
+rotation = 1.5708
+
+[node name="PlataformZ2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2568, 0 )
+rotation = 1.5708
+
+[node name="PlataformZ3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2568, -128 )
+rotation = 1.5708
+
+[node name="Plataform" parent="." instance=ExtResource( 1 )]
+position = Vector2( 64, 336 )
+
+[node name="Plataform2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 192, 336 )
+
+[node name="Plataform3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 320, 336 )
+
+[node name="Plataform4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 448, 336 )
+
+[node name="Plataform5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 568, 360 )
+rotation = 0.429085
+
+[node name="Plataform6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 688, 408 )
+rotation = 0.286397
+
+[node name="Plataform7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 808, 448 )
+rotation = 0.315895
+
+[node name="Plataform8" parent="." instance=ExtResource( 1 )]
+position = Vector2( 936, 464 )
+
+[node name="Plataform9" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1064, 448 )
+rotation = -0.294908
+
+[node name="Plataform10" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1176, 392 )
+rotation = -0.654444
+
+[node name="Plataform11" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1280, 312 )
+rotation = -0.654444
+
+[node name="Plataform12" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1384, 232 )
+rotation = -0.654444
+
+[node name="Plataform13" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1496, 192 )
+rotation = -0.00351623
+
+[node name="Plataform14" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1632, 184 )
+rotation = -0.00351623
+
+[node name="Plataform15" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1760, 184 )
+rotation = -0.00351623
+
+[node name="Plataform16" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1920, 184 )
+rotation = -0.00351623
+
+[node name="Plataform17" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2080, 184 )
+rotation = -0.00351623
+
+[node name="Plataform18" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2240, 184 )
+rotation = -0.00351623
+
+[node name="Plataform19" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2368, 184 )
+rotation = -0.00351623
+
+[node name="Plataform20" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2496, 184 )
+rotation = -0.00351623
+
+[node name="Vehicle" parent="." instance=ExtResource( 2 )]
+position = Vector2( 112, 128 )
+
+[node name="Camera2D" type="Camera2D" parent="Vehicle"]
+current = true

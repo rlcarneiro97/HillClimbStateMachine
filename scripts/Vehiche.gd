@@ -4,14 +4,22 @@ enum {IDLE, ACELERAR, FREAR, TRACAO}
 var current_state := 0
 var enterState := true
 
-export var torque: int = 1800
+export var torque: int = 2000
 
 var tracao := 0
+var TORQUE_TRASEIRO := 0.80
+var TORQUE_DIANTEIRO := 0.20
+var friccao := 1.0
+
 var pitch = 0.8
 const PITCH_TIME_IN = 0.05
 const PITCH_TIME_OUT = 2
 
-const CONST_INCLINACAO = 1500
+const CONST_INCLINACAO = 2000
+
+func _ready():
+	get_node("BackWheel").set_friction(friccao)
+	get_node("FrontWheel").set_friction(friccao)
 
 func _process(delta):
 	
@@ -102,8 +110,8 @@ func _acelerarState():
 		get_node("BackWheel").apply_torque_impulse(torque)
 		_inclinarParaEsquerda()
 	elif tracao == 2:
-		get_node("FrontWheel").apply_torque_impulse(torque/2)
-		get_node("BackWheel").apply_torque_impulse(torque/2)
+		get_node("FrontWheel").apply_torque_impulse(torque * TORQUE_DIANTEIRO)
+		get_node("BackWheel").apply_torque_impulse(torque * TORQUE_TRASEIRO)
 		_inclinarParaEsquerda()
 	
 	_aceleracaoSomTorque()

@@ -10,7 +10,7 @@
 extents = Vector2( 17.5, 64 )
 
 [node name="Vehicle" type="RigidBody2D"]
-mass = 102.041
+mass = 112.245
 can_sleep = false
 script = ExtResource( 4 )
 
@@ -30,23 +30,25 @@ shape = SubResource( 3 )
 
 [node name="BackWheel" parent="." instance=ExtResource( 1 )]
 position = Vector2( -48, 38 )
+mass = 1.22449
 can_sleep = false
 
 [node name="FrontWheel" parent="." instance=ExtResource( 1 )]
 position = Vector2( 39, 38 )
+mass = 1.22449
 can_sleep = false
 
 [node name="PinBack" type="PinJoint2D" parent="."]
 position = Vector2( -48, 38 )
 node_a = NodePath("..")
 node_b = NodePath("../BackWheel")
-softness = 0.3
+softness = 0.2
 
 [node name="PinFront" type="PinJoint2D" parent="."]
 position = Vector2( 39, 38 )
 node_a = NodePath("..")
 node_b = NodePath("../FrontWheel")
-softness = 0.3
+softness = 0.2
 
 [node name="SomMotor" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )

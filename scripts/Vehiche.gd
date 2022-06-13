@@ -4,22 +4,49 @@ enum {IDLE, ACELERAR, FREAR, TRACAO}
 var current_state := 0
 var enterState := true
 
-export var torque: int = 2000
+# O Medidor de RPM do jogo é o valor da var Pitch.
+# O Medidor de Boost do jogo é a angular_velocity.
 
-var tracao := 0
-var TORQUE_TRASEIRO := 0.80
-var TORQUE_DIANTEIRO := 0.20
+# Motor (Torque) 1/13
+export var torqueMotor: int = 600
+
+# Suspensao 1/14
+var suspension := 1.0
+
+# Rodas 1/16
 var friccao := 1.0
 
+# Tração 1/10
+var tracao := 0
+var TORQUE_TRASEIRO := 0.50
+var TORQUE_DIANTEIRO := 0.50
+
+# Transmissão
+var transmissao := 1
+var lim_conta_giro := 20.0
+
+# -----------------------------------------------------------
+
+# Som
 var pitch = 0.8
 const PITCH_TIME_IN = 0.05
 const PITCH_TIME_OUT = 2
 
-const CONST_INCLINACAO = 2000
+# Inclinação
+const CONST_INCLINACAO = 500
+
+# Referências
+onready var frontWheel = get_node("FrontWheel")
+onready var backWheel = get_node("BackWheel")
+onready var frontSuspension = get_node("PinFront")
+onready var backSuspension = get_node("PinBack")
 
 func _ready():
-	get_node("BackWheel").set_friction(friccao)
-	get_node("FrontWheel").set_friction(friccao)
+	frontWheel.set_friction(friccao)
+	backWheel.set_friction(friccao)
+	
+	frontSuspension.set_softness(suspension)
+	backSuspension.set_softness(suspension)
 
 func _process(delta):
 	
@@ -103,17 +130,20 @@ func _acelerarState():
 	
 	_inicializaSom()
 	
-	if tracao == 0:
-		get_node("FrontWheel").apply_torque_impulse(torque)
+	if tracao == 0 and frontWheel.angular_velocity < lim_conta_giro:
+		frontWheel.apply_torque_impulse(torqueMotor)
 		_inclinarParaEsquerda()
-	elif tracao == 1:
-		get_node("BackWheel").apply_torque_impulse(torque)
+		print(frontWheel.angular_velocity)
+	elif tracao == 1 and backWheel.angular_velocity < lim_conta_giro:
+		backWheel.apply_torque_impulse(torqueMotor)
 		_inclinarParaEsquerda()
-	elif tracao == 2:
-		get_node("FrontWheel").apply_torque_impulse(torque * TORQUE_DIANTEIRO)
-		get_node("BackWheel").apply_torque_impulse(torque * TORQUE_TRASEIRO)
+		print(backWheel.angular_velocity)
+	elif tracao == 2 and frontWheel.angular_velocity < lim_conta_giro and backWheel.angular_velocity < lim_conta_giro:
+		frontWheel.apply_torque_impulse(torqueMotor * TORQUE_DIANTEIRO)
+		backWheel.apply_torque_impulse(torqueMotor * TORQUE_TRASEIRO)
+		print(frontWheel.angular_velocity, " | ", backWheel.angular_velocity)
 		_inclinarParaEsquerda()
-	
+
 	_aceleracaoSomTorque()
 	_setState(_checkAcelerarState())
 	
@@ -121,15 +151,18 @@ func _frearState():
 	
 	_inicializaSom()
 	
-	if tracao == 0:
-		get_node("FrontWheel").apply_torque_impulse(-torque)
+	if tracao == 0 and frontWheel.angular_velocity > -lim_conta_giro:
+		frontWheel.apply_torque_impulse(-torqueMotor)
+		print(frontWheel.angular_velocity)
 		_inclinarParaDireita()
-	elif tracao == 1:
-		get_node("BackWheel").apply_torque_impulse(-torque)
+	elif tracao == 1 and backWheel.angular_velocity > -lim_conta_giro:
+		backWheel.apply_torque_impulse(-torqueMotor)
+		print(backWheel.angular_velocity)
 		_inclinarParaDireita()
-	elif tracao == 2:
-		get_node("FrontWheel").apply_torque_impulse(-torque/2)
-		get_node("BackWheel").apply_torque_impulse(-torque/2)
+	elif tracao == 2 and frontWheel.angular_velocity > -lim_conta_giro and backWheel.angular_velocity > -lim_conta_giro:
+		frontWheel.apply_torque_impulse(-(torqueMotor * TORQUE_DIANTEIRO))
+		backWheel.apply_torque_impulse(-(torqueMotor * TORQUE_TRASEIRO))
+		print(frontWheel.angular_velocity, " | ", backWheel.angular_velocity)
 		_inclinarParaDireita()
 	
 	_aceleracaoSomTorque()
